@@ -34,23 +34,27 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theater, pub, lab, office;
+        Room recepcion, oficinas, laboratorio, planta, logistica, vestuarios,torno;
       
         // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theater = new Room("in a lecture theater");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
+        recepcion = new Room("la recepción de la fábrica.");
+        oficinas = new Room("las oficinas del personal administrativo.");
+        laboratorio = new Room("en el laboratorio de pruebas.");
+        planta = new Room("en la planta de producción y montaje.");
+        logistica = new Room("en el almacén de la fábrica.");
+        vestuarios = new Room("en los vestuarios.");
+        torno = new Room("en el torno de salida para empleados.");
         
         // initialise room exits
-        outside.setExits(null, theater, lab, pub);
-        theater.setExits(null, null, null, outside);
-        pub.setExits(null, outside, null, null);
-        lab.setExits(outside, office, null, null);
-        office.setExits(null, null, null, lab);
+        recepcion.setExits(oficinas, null, null, null);
+        oficinas.setExits(vestuarios, planta, recepcion, laboratorio);
+        laboratorio.setExits(null, oficinas, null, null);
+        planta.setExits(logistica, null, null, oficinas);
+        logistica.setExits(null, null, planta, vestuarios);
+        vestuarios.setExits(torno, logistica, oficinas, null);
+        torno.setExits(null, null, vestuarios, null);
 
-        currentRoom = outside;  // start game outside
+        currentRoom = recepcion;  // start game outside
     }
 
     /**
@@ -68,7 +72,7 @@ public class Game
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        System.out.println("Thank you for playing.  Good bye.");
+        System.out.println("Gracias por jugar.  Adios.");
     }
 
     /**
@@ -77,12 +81,12 @@ public class Game
     private void printWelcome()
     {
         System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
-        System.out.println("Type 'help' if you need help.");
+        System.out.println("Bienvenido a F*** the police!");
+        System.out.println("F*** the police! es una nueva aventura de texto increíblemente aburrida.");
+        System.out.println("Escribe 'help' si necesitas ayuda.");
         System.out.println();
-        System.out.println("You are " + currentRoom.getDescription());
-        System.out.print("Exits: ");
+        System.out.println("Estás en " + currentRoom.getDescription());
+        System.out.print("Salidas: ");
         if(currentRoom.northExit != null) {
             System.out.print("north ");
         }
@@ -135,10 +139,11 @@ public class Game
      */
     private void printHelp() 
     {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
+        System.out.println("Acabas de robar documentos importantes de una fábrica.");
+        System.out.println("De vuelta en la entrada ves que la policía está en el exterior.");
+        System.out.println("Debes encontrar otra salida.");
         System.out.println();
-        System.out.println("Your command words are:");
+        System.out.println("Tus comandos son:");
         System.out.println("   go quit help");
     }
 
@@ -176,8 +181,8 @@ public class Game
         }
         else {
             currentRoom = nextRoom;
-            System.out.println("You are " + currentRoom.getDescription());
-            System.out.print("Exits: ");
+            System.out.println("Estás en " + currentRoom.getDescription());
+            System.out.print("Salidas: ");
             if(currentRoom.northExit != null) {
                 System.out.print("north ");
             }
