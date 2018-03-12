@@ -45,15 +45,38 @@ public class Game
         vestuarios = new Room("en los vestuarios.");
         torno = new Room("en el torno de salida para empleados.");
 
-        // initialise room exits
-        recepcion.setExits(oficinas, null, null, null, null, laboratorio);
-        oficinas.setExits(vestuarios, planta, recepcion, laboratorio, null, null);
-        laboratorio.setExits(null, oficinas, null, null, recepcion, null);
-        planta.setExits(logistica, null, null, oficinas, null, vestuarios);
-        logistica.setExits(null, null, planta, vestuarios, null, torno);
-        vestuarios.setExits(torno, logistica, oficinas, null, planta, null);
-        torno.setExits(null, null, vestuarios, null, logistica, null);
+        // initialise room exits        
+        recepcion.setExit("north", oficinas);
+        recepcion.setExit("northWest", laboratorio);
+        // recepcion.setExit("south", torno);
+        
+        
+        oficinas.setExit("north", vestuarios);
+        oficinas.setExit("east", planta);
+        oficinas.setExit("south", recepcion);
+        oficinas.setExit("west", laboratorio);
+        
+        laboratorio.setExit("east", oficinas);
+        laboratorio.setExit("southEast", recepcion);        
+        // laboratorio.setExit("northEast", vestuarios);
+        
+        planta.setExit("north", logistica);
+        planta.setExit("west", oficinas);
+        planta.setExit("northWest", vestuarios);
 
+        logistica.setExit("south", planta);
+        logistica.setExit("west", vestuarios);
+        logistica.setExit("northWest", torno);
+        
+        vestuarios.setExit("north", torno);
+        vestuarios.setExit("east", logistica);
+        vestuarios.setExit("south", oficinas);
+        vestuarios.setExit("southEast", planta);       
+        // vestuarios.setExit("southWest", laboratorio);
+        
+        torno.setExit("south", vestuarios);
+        torno.setExit("southEast", logistica);
+        
         currentRoom = recepcion;  // start game outside
     }
 
