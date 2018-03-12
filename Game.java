@@ -203,8 +203,7 @@ public class Game
      * salidas que tiene disponibles.
      */
     private void printLocationInfo(){
-        System.out.println("Estás en " + currentRoom.getDescription());
-        System.out.println(currentRoom.getExitString());
-        System.out.println();
+        System.out.println(currentRoom.getLongDescription());
+        System.out.println();        
     }
 }

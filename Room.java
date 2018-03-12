@@ -73,4 +73,14 @@ public class Room
 
         return exitString;
     }
+
+    /**
+     * Devuelve una descripcion larga de la sala, en formato:
+     *     Estas en 'nombre de la sala'
+     *     Salidas: north west southwest
+     * @return Una descripcion de la sala, incluyendo las salidas.
+     */
+    public String getLongDescription(){        
+        return "Estas en " + getDescription() + "\n" + getExitString();
+    }
 }
