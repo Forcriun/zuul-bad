@@ -19,7 +19,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-        
+
     /**
      * Create the game and initialise its internal map.
      */
@@ -35,7 +35,7 @@ public class Game
     private void createRooms()
     {
         Room recepcion, oficinas, laboratorio, planta, logistica, vestuarios,torno;
-      
+
         // create the rooms
         recepcion = new Room("la recepción de la fábrica.");
         oficinas = new Room("las oficinas del personal administrativo.");
@@ -44,7 +44,7 @@ public class Game
         logistica = new Room("en el almacén de la fábrica.");
         vestuarios = new Room("en los vestuarios.");
         torno = new Room("en el torno de salida para empleados.");
-        
+
         // initialise room exits
         recepcion.setExits(oficinas, null, null, null);
         oficinas.setExits(vestuarios, planta, recepcion, laboratorio);
@@ -66,7 +66,7 @@ public class Game
 
         // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
-                
+
         boolean finished = false;
         while (! finished) {
             Command command = parser.getCommand();
@@ -85,21 +85,7 @@ public class Game
         System.out.println("F*** the police! es una nueva aventura de texto increíblemente aburrida.");
         System.out.println("Escribe 'help' si necesitas ayuda.");
         System.out.println();
-        System.out.println("Estás en " + currentRoom.getDescription());
-        System.out.print("Salidas: ");
-        if(currentRoom.northExit != null) {
-            System.out.print("north ");
-        }
-        if(currentRoom.eastExit != null) {
-            System.out.print("east ");
-        }
-        if(currentRoom.southExit != null) {
-            System.out.print("south ");
-        }
-        if(currentRoom.westExit != null) {
-            System.out.print("west ");
-        }
-        System.out.println();
+        printLocationInfo();
     }
 
     /**
@@ -181,21 +167,7 @@ public class Game
         }
         else {
             currentRoom = nextRoom;
-            System.out.println("Estás en " + currentRoom.getDescription());
-            System.out.print("Salidas: ");
-            if(currentRoom.northExit != null) {
-                System.out.print("north ");
-            }
-            if(currentRoom.eastExit != null) {
-                System.out.print("east ");
-            }
-            if(currentRoom.southExit != null) {
-                System.out.print("south ");
-            }
-            if(currentRoom.westExit != null) {
-                System.out.print("west ");
-            }
-            System.out.println();
+            printLocationInfo();
         }
     }
 
@@ -213,5 +185,27 @@ public class Game
         else {
             return true;  // signal that we want to quit
         }
+    }
+
+    /**
+     * Metodo que muestra por pantalla la sala en la que esta el jugador y las
+     * salidas que tiene disponibles.
+     */
+    private void printLocationInfo(){
+        System.out.println("Estás en " + currentRoom.getDescription());
+        System.out.print("Salidas: ");
+        if(currentRoom.northExit != null) {
+            System.out.print("north ");
+        }
+        if(currentRoom.eastExit != null) {
+            System.out.print("east ");
+        }
+        if(currentRoom.southExit != null) {
+            System.out.print("south ");
+        }
+        if(currentRoom.westExit != null) {
+            System.out.print("west ");
+        }
+        System.out.println();
     }
 }
