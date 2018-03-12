@@ -48,7 +48,7 @@ public class Game
         // initialise room exits
         recepcion.setExits(oficinas, null, null, null, null, laboratorio);
         oficinas.setExits(vestuarios, planta, recepcion, laboratorio, null, null);
-        laboratorio.setExits(null, oficinas, null, null, null, null);
+        laboratorio.setExits(null, oficinas, null, null, recepcion, null);
         planta.setExits(logistica, null, null, oficinas, null, vestuarios);
         logistica.setExits(null, null, planta, vestuarios, null, torno);
         vestuarios.setExits(torno, logistica, oficinas, null, planta, null);
