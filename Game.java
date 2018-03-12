@@ -46,13 +46,13 @@ public class Game
         torno = new Room("en el torno de salida para empleados.");
 
         // initialise room exits
-        recepcion.setExits(oficinas, null, null, null);
-        oficinas.setExits(vestuarios, planta, recepcion, laboratorio);
-        laboratorio.setExits(null, oficinas, null, null);
-        planta.setExits(logistica, null, null, oficinas);
-        logistica.setExits(null, null, planta, vestuarios);
-        vestuarios.setExits(torno, logistica, oficinas, null);
-        torno.setExits(null, null, vestuarios, null);
+        recepcion.setExits(oficinas, null, null, null, null);
+        oficinas.setExits(vestuarios, planta, recepcion, laboratorio, null);
+        laboratorio.setExits(null, oficinas, null, null, null);
+        planta.setExits(logistica, null, null, oficinas, null);
+        logistica.setExits(null, null, planta, vestuarios, null);
+        vestuarios.setExits(torno, logistica, oficinas, null, planta);
+        torno.setExits(null, null, vestuarios, null, logistica);
 
         currentRoom = recepcion;  // start game outside
     }
@@ -161,6 +161,9 @@ public class Game
         if(direction.equals("west")) {
             nextRoom = currentRoom.westExit;
         }
+        if(direction.equals("southEast")) {
+            nextRoom = currentRoom.southEastExit;
+        }
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
@@ -205,6 +208,9 @@ public class Game
         }
         if(currentRoom.westExit != null) {
             System.out.print("west ");
+        }
+        if(currentRoom.southEastExit != null) {
+            System.out.print("southEast ");
         }
         System.out.println();
     }
