@@ -46,13 +46,13 @@ public class Game
         torno = new Room("en el torno de salida para empleados.");
 
         // initialise room exits
-        recepcion.setExits(oficinas, null, null, null, null);
-        oficinas.setExits(vestuarios, planta, recepcion, laboratorio, null);
-        laboratorio.setExits(null, oficinas, null, null, null);
-        planta.setExits(logistica, null, null, oficinas, null);
-        logistica.setExits(null, null, planta, vestuarios, null);
-        vestuarios.setExits(torno, logistica, oficinas, null, planta);
-        torno.setExits(null, null, vestuarios, null, logistica);
+        recepcion.setExits(oficinas, null, null, null, null, laboratorio);
+        oficinas.setExits(vestuarios, planta, recepcion, laboratorio, null, null);
+        laboratorio.setExits(null, oficinas, null, null, null, null);
+        planta.setExits(logistica, null, null, oficinas, null, vestuarios);
+        logistica.setExits(null, null, planta, vestuarios, null, torno);
+        vestuarios.setExits(torno, logistica, oficinas, null, planta, null);
+        torno.setExits(null, null, vestuarios, null, logistica, null);
 
         currentRoom = recepcion;  // start game outside
     }
