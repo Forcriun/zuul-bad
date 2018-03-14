@@ -159,7 +159,7 @@ public class Game
         System.out.println("Debes encontrar otra salida.");
         System.out.println();
         System.out.println("Tus comandos son:");
-        System.out.println("   go quit help");
+        parser.showCommands();
     }
 
     /** 
