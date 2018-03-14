@@ -18,6 +18,7 @@ public class Room
 {
     private String description;
     private HashMap<String,Room> exits;
+    private Item item;
 
     /**
      * Create a room described "description". Initially, it has
@@ -25,10 +26,11 @@ public class Room
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description) 
+    public Room(String description, Item item) 
     {
         this.description = description;
         exits = new HashMap<>();
+        this.item = item;
     }
 
     /**
@@ -78,9 +80,12 @@ public class Room
      * Devuelve una descripcion larga de la sala, en formato:
      *     Estas en 'nombre de la sala'
      *     Salidas: north west southwest
+     *     Item: description (weight)
      * @return Una descripcion de la sala, incluyendo las salidas.
      */
-    public String getLongDescription(){        
-        return "Estas en " + getDescription() + "\n" + getExitString();
+    public String getLongDescription(){
+        String itemLongDescription = (item == null)?"":item.getLongDescription();
+
+        return "Estas en " + getDescription() + "\n" + getExitString() + "\n" + itemLongDescription;
     }
 }

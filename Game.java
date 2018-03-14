@@ -37,13 +37,13 @@ public class Game
         Room recepcion, oficinas, laboratorio, planta, logistica, vestuarios,torno;
 
         // create the rooms
-        recepcion = new Room("la recepción de la fábrica.");
-        oficinas = new Room("las oficinas del personal administrativo.");
-        laboratorio = new Room("en el laboratorio de pruebas.");
-        planta = new Room("en la planta de producción y montaje.");
-        logistica = new Room("en el almacén de la fábrica.");
-        vestuarios = new Room("en los vestuarios.");
-        torno = new Room("en el torno de salida para empleados.");
+        recepcion = new Room("la recepción de la fábrica.", new Item("Paraguas",400));
+        oficinas = new Room("las oficinas del personal administrativo.", null);
+        laboratorio = new Room("en el laboratorio de pruebas.", null);
+        planta = new Room("en la planta de producción y montaje.", new Item("Barra de acero inoxidable",1200));
+        logistica = new Room("en el almacén de la fábrica.", null);
+        vestuarios = new Room("en los vestuarios.", new Item("Abrigo de piel",2100));
+        torno = new Room("en el torno de salida para empleados.", null);
 
         // initialise room exits        
         recepcion.setExit("north", oficinas);
