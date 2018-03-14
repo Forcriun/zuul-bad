@@ -49,17 +49,16 @@ public class Game
         recepcion.setExit("north", oficinas);
         recepcion.setExit("northWest", laboratorio);
         // recepcion.setExit("south", torno);
-        
-        
+
         oficinas.setExit("north", vestuarios);
         oficinas.setExit("east", planta);
         oficinas.setExit("south", recepcion);
         oficinas.setExit("west", laboratorio);
-        
+
         laboratorio.setExit("east", oficinas);
         laboratorio.setExit("southEast", recepcion);        
         // laboratorio.setExit("northEast", vestuarios);
-        
+
         planta.setExit("north", logistica);
         planta.setExit("west", oficinas);
         planta.setExit("northWest", vestuarios);
@@ -67,16 +66,16 @@ public class Game
         logistica.setExit("south", planta);
         logistica.setExit("west", vestuarios);
         logistica.setExit("northWest", torno);
-        
+
         vestuarios.setExit("north", torno);
         vestuarios.setExit("east", logistica);
         vestuarios.setExit("south", oficinas);
         vestuarios.setExit("southEast", planta);       
         // vestuarios.setExit("southWest", laboratorio);
-        
+
         torno.setExit("south", vestuarios);
         torno.setExit("southEast", logistica);
-        
+
         currentRoom = recepcion;  // start game outside
     }
 
@@ -159,7 +158,7 @@ public class Game
         System.out.println("Debes encontrar otra salida.");
         System.out.println();
         System.out.println("Tus comandos son:");
-        parser.showCommands();
+        System.out.println(parser.showCommands());
     }
 
     /** 
