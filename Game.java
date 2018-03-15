@@ -1,3 +1,5 @@
+import java.util.Stack;
+
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -19,7 +21,8 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-    private Room previousRoom;
+    //private Room previousRoom;
+    private Stack<Room> enteredRooms;   //  Stack de las salas visitadas por el jugador durante la partida
 
     /**
      * Create the game and initialise its internal map.
@@ -28,7 +31,8 @@ public class Game
     {
         createRooms();
         parser = new Parser();
-        previousRoom = null;
+        //previousRoom = null;
+        enteredRooms = new Stack<>();
     }
 
     /**
@@ -203,8 +207,9 @@ public class Game
             System.out.println("There is no door!");
         }
         else {
-            previousRoom = currentRoom;
+            enteredRooms.push(currentRoom);
             currentRoom = nextRoom;
+            //previousRoom = enteredRooms.peek();
             printLocationInfo();
         }
     }
@@ -244,18 +249,18 @@ public class Game
     }
 
     /**
-     * Metodo que devuelve al jugador a la ultima sala en la que estuvo.
-     * Al iniciar la partida y cuando intenta invocarse dos veces seguidas
-     * avisa de que no es posible llevar a cabo la accion.
+     * Metodo que devuelve al jugador a la ultima sala en la que estuvo. Puede
+     * invocarse repetidamente hasta volver a la posicion inicial de la partida.
+     * Avisa por pantalla en caso de estar en la sala inicial.
      */
     private void back() 
     {
-        if(previousRoom == null){
-            System.out.println("¡No puedes volver atrás!"); 
+        if(enteredRooms.empty()){
+            System.out.println("¡No puedes volver atrás, estás en el comienzo del juego!"); 
         }
         else{
-            currentRoom = previousRoom;
-            previousRoom = null;
+            currentRoom = enteredRooms.pop();
+            //previousRoom = stack.peek();
             printLocationInfo();
         }
     }
