@@ -37,13 +37,13 @@ public class Game
         Room recepcion, oficinas, laboratorio, planta, logistica, vestuarios,torno;
 
         // create the rooms
-        recepcion = new Room("la recepción de la fábrica.", new Item("Paraguas",400));
-        oficinas = new Room("las oficinas del personal administrativo.", null);
-        laboratorio = new Room("en el laboratorio de pruebas.", null);
-        planta = new Room("en la planta de producción y montaje.", new Item("Barra de acero inoxidable",1200));
-        logistica = new Room("en el almacén de la fábrica.", null);
-        vestuarios = new Room("en los vestuarios.", new Item("Abrigo de piel",2100));
-        torno = new Room("en el torno de salida para empleados.", null);
+        recepcion = new Room("la recepción de la fábrica.");
+        oficinas = new Room("las oficinas del personal administrativo.");
+        laboratorio = new Room("en el laboratorio de pruebas.");
+        planta = new Room("en la planta de producción y montaje.");
+        logistica = new Room("en el almacén de la fábrica.");
+        vestuarios = new Room("en los vestuarios.");
+        torno = new Room("en el torno de salida para empleados.");
 
         // initialise room exits        
         recepcion.setExit("north", oficinas);
@@ -75,6 +75,22 @@ public class Game
 
         torno.setExit("south", vestuarios);
         torno.setExit("southEast", logistica);
+        
+        // Anadimos los items a las salas
+        recepcion.addItem("Paraguas",400);
+        
+        planta.addItem("Barra de acero inoxidable",1200);
+        planta.addItem("Llave dinamométrica",3480);
+        planta.addItem("Casco de seguridad",720);
+        
+        
+        logistica.addItem("Rollo de embalaje",9235);
+        logistica.addItem("Cúter",115);
+        
+        vestuarios.addItem("Abrigo de piel",2100);
+        vestuarios.addItem("Botas de seguridad",2430);
+        vestuarios.addItem("Guantes del nº9",65);
+        vestuarios.addItem("Camiseta de tirantes",80);
 
         currentRoom = recepcion;  // start game outside
     }

@@ -45,6 +45,6 @@ public class Item
      */
     public String getLongDescription()
     {
-        return "Item: " + description + " (" + weight + " gm).";
+        return "  --> " + description + " (" + weight + " gm).";
     }
 }
