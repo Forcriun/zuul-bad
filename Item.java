@@ -9,6 +9,7 @@ public class Item
 {
     private String description;
     private int weight;
+    private boolean canBeTaken;
 
     /**
      * Constructor para objetos de la clase Item
@@ -16,16 +17,17 @@ public class Item
      * @param description La descripcion del item
      * @param description El peso del item
      */
-    public Item(String description, int weight)
+    public Item(String description, int weight, boolean canBeTaken)
     {
         this.description = description;
         this.weight = weight;
+        this.canBeTaken = canBeTaken;
     }
 
     /**
      * Getter de la descripcion del item
      */
-    public String getItemDescription()
+    public String getDescription()
     {
         return description;
     }
@@ -33,9 +35,17 @@ public class Item
     /**
      * Getter de la descripcion del item
      */
-    public int getItemWeight()
+    public int getWeight()
     {
         return weight;
+    }
+
+    /**
+     * Getter de la descripcion del item
+     */
+    public boolean getCanBeTaken()
+    {
+        return canBeTaken;
     }
     
     /**

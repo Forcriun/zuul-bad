@@ -1,4 +1,5 @@
 import java.util.Stack;
+import java.util.ArrayList;
 
 /**
  *  This class is the main class of the "World of Zuul" application. 
@@ -21,8 +22,14 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-    //private Room previousRoom;
+
+    //  private Room previousRoom;
     private Stack<Room> enteredRooms;   //  Stack de las salas visitadas por el jugador durante la partida
+
+    //  Variables de control del inventario
+    private ArrayList<Item> inventory;
+    private static final int MAX_WEIGHT = 10000;
+    private int currentWeight;
 
     /**
      * Create the game and initialise its internal map.
@@ -33,6 +40,7 @@ public class Game
         parser = new Parser();
         //previousRoom = null;
         enteredRooms = new Stack<>();
+        inventory = new ArrayList<>();
     }
 
     /**
@@ -81,22 +89,23 @@ public class Game
 
         torno.setExit("south", vestuarios);
         torno.setExit("southEast", logistica);
-        
+
         // Anadimos los items a las salas
-        recepcion.addItem("Paraguas",400);
-        
-        planta.addItem("Barra de acero inoxidable",1200);
-        planta.addItem("Llave dinamométrica",3480);
-        planta.addItem("Casco de seguridad",720);
-        
-        
-        logistica.addItem("Rollo de embalaje",9235);
-        logistica.addItem("Cúter",115);
-        
-        vestuarios.addItem("Abrigo de piel",2100);
-        vestuarios.addItem("Botas de seguridad",2430);
-        vestuarios.addItem("Guantes del nº9",65);
-        vestuarios.addItem("Camiseta de tirantes",80);
+        recepcion.addItem("Paraguas",400,true);
+        recepcion.addItem("Folleto de la empresa",15,true);
+        recepcion.addItem("Stand publicitario",9700,true);
+
+        planta.addItem("Barra de acero inoxidable",1200,true);
+        planta.addItem("Llave dinamométrica",3480,false);
+        planta.addItem("Casco de seguridad",720,true);
+
+        logistica.addItem("Rollo de embalaje",12235,true);
+        logistica.addItem("Cúter",115,false);
+
+        vestuarios.addItem("Abrigo de piel",2100,false);
+        vestuarios.addItem("Botas de seguridad",2430,true);
+        vestuarios.addItem("Guantes del nº9",65,false);
+        vestuarios.addItem("Camiseta de tirantes",80,true);
 
         currentRoom = recepcion;  // start game outside
     }
@@ -161,6 +170,15 @@ public class Game
         }
         else if (commandWord.equals("back")) {
             back();
+        }
+        else if (commandWord.equals("take")) {
+            take(command.getSecondWord());
+        }
+        else if (commandWord.equals("drop")) {
+            drop(command.getSecondWord());
+        }
+        else if (commandWord.equals("items")) {
+            items();
         }
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
@@ -262,6 +280,90 @@ public class Game
             currentRoom = enteredRooms.pop();
             //previousRoom = stack.peek();
             printLocationInfo();
+        }
+    }
+
+    /**
+     * Metodo que simula al jugador cogiendo un objeto de la sala en la que se
+     * encuentra. Si tiene lleno el inventario o el peso del objeto a coger
+     * hace que sobrepase su limite, no lo coge.
+     * 
+     * @param itemDescriptionFirstWord La primera palabra de la descripcion del objeto
+     */
+    private void take(String itemDescriptionFirstWord) 
+    {        
+        Item currentItem = null;
+
+        for(Item item : currentRoom.getItems()){
+            if(item.getDescription().contains(itemDescriptionFirstWord)){
+                currentItem = item;
+            }
+        }
+
+        if(currentItem != null){
+            if(currentItem.getCanBeTaken()){
+                if(currentItem.getWeight() + currentWeight < MAX_WEIGHT){
+                    inventory.add(currentItem);
+                    currentRoom.getItems().remove(currentItem);
+                    currentWeight += currentItem.getWeight();
+                    System.out.println("Has cogido el objeto: " + currentItem.getDescription() + ".");
+                }
+                else{
+                    System.out.println("¡El objeto no cabe en tu inventario!");
+                }
+            }
+            else{
+                System.out.println("¡No puedes coger el objeto!");
+            }
+        }
+        else{
+            System.out.println("¿De qué objeto me estás hablando?");
+        }        
+    }
+
+    /**
+     * Metodo que simula al jugador soltando un objeto en la sala en la que se
+     * encuentra. Si tiene el inventario vacio recibe un aviso.
+     * 
+     * @param itemDescriptionFirstWord La primera palabra de la descripcion del objeto
+     */
+    private void drop(String itemDescriptionFirstWord) 
+    {
+        Item currentItem = null;
+
+        for(Item item : inventory){
+            if(item.getDescription().contains(itemDescriptionFirstWord)){
+                currentItem = item;
+            }
+        }
+
+        if(currentItem != null){
+            currentRoom.getItems().add(currentItem);
+            currentWeight -= currentItem.getWeight();
+            inventory.remove(currentItem);
+            System.out.println("Has soltado: " + currentItem.getDescription());
+        }
+        else{
+            System.out.println("El objeto no está en tu inventario.");
+        } 
+    }
+
+    /**
+     * Metodo que informa al jugador del contenido de su inventario.
+     */
+    private void items() 
+    {
+        if(inventory.isEmpty()){
+            System.out.println("Tu inventario está vacío.");
+        }
+        else{
+            System.out.println("Inventario: ");
+            
+            for(Item item : inventory){
+                System.out.println(item.getLongDescription());
+            }            
+            
+            System.out.println("Peso total: " + currentWeight + "(gm).");
         }
     }
 }

@@ -96,8 +96,19 @@ public class Room
     
     /**
      * Metodo que anade nuevos items al listado de items de la sala
+     * 
+     * @param description La descripcion del objeto
+     * @param weight El peso del objeto
+     * @param canBeTaken Si se puede coger el objeto
      */
-    public void addItem(String description,int weight){
-        items.add(new Item (description,weight));
+    public void addItem(String description,int weight, boolean canBeTaken){
+        items.add(new Item (description,weight, canBeTaken));
+    }
+    
+    /**
+     * Getter de items
+     */
+    public ArrayList<Item> getItems(){
+        return items;
     }
 }
