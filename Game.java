@@ -21,18 +21,16 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-    //private Room previousRoom;
-    private Stack<Room> enteredRooms;   //  Stack de las salas visitadas por el jugador durante la partida
+    private Player player;
 
     /**
      * Create the game and initialise its internal map.
      */
     public Game() 
     {
+        player = new Player();
         createRooms();
         parser = new Parser();
-        //previousRoom = null;
-        enteredRooms = new Stack<>();
     }
 
     /**
@@ -81,24 +79,23 @@ public class Game
 
         torno.setExit("south", vestuarios);
         torno.setExit("southEast", logistica);
-        
+
         // Anadimos los items a las salas
         recepcion.addItem("Paraguas",400);
-        
+
         planta.addItem("Barra de acero inoxidable",1200);
         planta.addItem("Llave dinamométrica",3480);
         planta.addItem("Casco de seguridad",720);
-        
-        
+
         logistica.addItem("Rollo de embalaje",9235);
         logistica.addItem("Cúter",115);
-        
+
         vestuarios.addItem("Abrigo de piel",2100);
         vestuarios.addItem("Botas de seguridad",2430);
         vestuarios.addItem("Guantes del nº9",65);
         vestuarios.addItem("Camiseta de tirantes",80);
 
-        currentRoom = recepcion;  // start game outside
+        player.setCurrentRoom(recepcion);  // start game outside
     }
 
     /**
@@ -129,7 +126,7 @@ public class Game
         System.out.println("F*** the police! es una nueva aventura de texto increíblemente aburrida.");
         System.out.println("Escribe 'help' si necesitas ayuda.");
         System.out.println();
-        printLocationInfo();
+        player.look();
     }
 
     /**
@@ -154,13 +151,13 @@ public class Game
             goRoom(command);
         }
         else if (commandWord.equals("look")) {
-            look();
+            player.look();
         }
         else if (commandWord.equals("eat")) {
-            System.out.println("You have eaten now and you are not hungry any more.");
+            player.eat();
         }
         else if (commandWord.equals("back")) {
-            back();
+            player.back();
         }
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
@@ -199,19 +196,7 @@ public class Game
         }
 
         String direction = command.getSecondWord();
-
-        // Try to leave current room.
-        Room nextRoom = currentRoom.getExit(direction);
-
-        if (nextRoom == null) {
-            System.out.println("There is no door!");
-        }
-        else {
-            enteredRooms.push(currentRoom);
-            currentRoom = nextRoom;
-            //previousRoom = enteredRooms.peek();
-            printLocationInfo();
-        }
+        player.goRoom(direction);
     }
 
     /** 
@@ -227,41 +212,6 @@ public class Game
         }
         else {
             return true;  // signal that we want to quit
-        }
-    }
-
-    /**
-     * Metodo que muestra por pantalla la sala en la que esta el jugador y las
-     * salidas que tiene disponibles.
-     */
-    private void printLocationInfo(){
-        System.out.println(currentRoom.getLongDescription());
-        System.out.println();        
-    }
-
-    /**
-     * Muestra por pantalla la informacion detallada de la sala actual y sus 
-     * salidas.
-     */
-    private void look() 
-    {
-        System.out.println(currentRoom.getLongDescription());
-    }
-
-    /**
-     * Metodo que devuelve al jugador a la ultima sala en la que estuvo. Puede
-     * invocarse repetidamente hasta volver a la posicion inicial de la partida.
-     * Avisa por pantalla en caso de estar en la sala inicial.
-     */
-    private void back() 
-    {
-        if(enteredRooms.empty()){
-            System.out.println("¡No puedes volver atrás, estás en el comienzo del juego!"); 
-        }
-        else{
-            currentRoom = enteredRooms.pop();
-            //previousRoom = stack.peek();
-            printLocationInfo();
         }
     }
 }
