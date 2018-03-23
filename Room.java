@@ -95,9 +95,43 @@ public class Room
     }
     
     /**
-     * Metodo que anade nuevos items al listado de items de la sala
+     * Metodo que anade un objeto indicado por parametro a la sala
+     * 
+     * @param  item  El objeto a anadir
      */
-    public void addItem(String description,int weight){
-        items.add(new Item (description,weight));
+    public void addItem(Item item){
+        items.add(item);
+    }
+    
+    /**
+     * Metodo que elimina de la sala el objeto indicado por parametro
+     * 
+     * @param  item  El objeto a anadir
+     */
+    public void removeItem(Item item){
+        items.remove(item);
+    }
+
+    /**
+     * Metodo que busca el objeto correspondiente a la cadena introducida por parametro
+     * dentro de la sala. 
+     * 
+     * @param  itemId  El ID del item a buscar en la sala
+     * return El item buscado. Null si no se encuentra en la sala.
+     */
+    public Item searchItem(String itemId){
+        Item searchedItem = null;
+        boolean searching = true;
+        
+        if(itemId != null){
+            for(int i = 0; i < items.size() && searching; i++){
+                if(items.get(i).getId().equals(itemId)){
+                    searchedItem = items.get(i);
+                    searching = false;
+                }
+            }
+        }
+
+        return searchedItem;
     }
 }

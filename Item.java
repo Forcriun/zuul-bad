@@ -7,19 +7,33 @@
  */
 public class Item
 {
+    private String id;
     private String description;
     private int weight;
+    private boolean canBeTaken;
 
     /**
      * Constructor para objetos de la clase Item
      * 
+     * @param id El ID del item
      * @param description La descripcion del item
-     * @param description El peso del item
+     * @param weight El peso del item
+     * @param canBeTaken Si el objeto puede cogerse
      */
-    public Item(String description, int weight)
+    public Item(String id, String description, int weight, boolean canBeTaken)
     {
+        this.id = id;
         this.description = description;
         this.weight = weight;
+        this.canBeTaken = canBeTaken;
+    }
+
+    /**
+     * Getter del ID del item
+     */
+    public String getId()
+    {
+        return id;
     }
 
     /**
@@ -37,6 +51,14 @@ public class Item
     {
         return weight;
     }
+
+    /**
+     * Getter de canBeTaken del item
+     */
+    public boolean getCanBeTaken()
+    {
+        return canBeTaken;
+    }
     
     /**
      * Devuelve toda la informacion del item
@@ -45,6 +67,6 @@ public class Item
      */
     public String getLongDescription()
     {
-        return "  --> " + description + " (" + weight + " gm).";
+        return "  --> ID[" + id + "] - " + description + " (" + weight + " gm).";
     }
 }

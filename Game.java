@@ -79,19 +79,21 @@ public class Game
         torno.setExit("southEast", logistica);
 
         // Anadimos los items a las salas
-        recepcion.addItem("Paraguas",400);
+        recepcion.addItem(new Item("paraguas","Paraguas",400,true));
+        recepcion.addItem(new Item("folleto","Folleto de la empresa",15,true));
+        recepcion.addItem(new Item("stand","Stand publicitario",9700,true));
 
-        planta.addItem("Barra de acero inoxidable",1200);
-        planta.addItem("Llave dinamométrica",3480);
-        planta.addItem("Casco de seguridad",720);
+        planta.addItem(new Item("barra","Barra de acero inoxidable",1200,true));
+        planta.addItem(new Item("llave","Llave dinamométrica",3480,false));
+        planta.addItem(new Item("casco","Casco de seguridad",720,true));
 
-        logistica.addItem("Rollo de embalaje",9235);
-        logistica.addItem("Cúter",115);
+        logistica.addItem(new Item("rollo","Rollo de embalaje",12235,true));
+        logistica.addItem(new Item("cuter","Cúter",115,false));
 
-        vestuarios.addItem("Abrigo de piel",2100);
-        vestuarios.addItem("Botas de seguridad",2430);
-        vestuarios.addItem("Guantes del nº9",65);
-        vestuarios.addItem("Camiseta de tirantes",80);
+        vestuarios.addItem(new Item("abrigo","Abrigo de piel",2100,false));
+        vestuarios.addItem(new Item("botas","Botas de seguridad",2430,true));
+        vestuarios.addItem(new Item("guantes","Guantes del nº9",65,false));
+        vestuarios.addItem(new Item("camiseta","Camiseta de tirantes",80,true));
 
         return recepcion;
     }
@@ -102,7 +104,7 @@ public class Game
      * @param   startingRoom  La habitacion inicial de la partida
      */
     private void createPlayer(){
-        player = new Player();
+        player = new Player(10000);
         player.setCurrentRoom(createRooms());  // start game outside        
     }
 
@@ -160,6 +162,15 @@ public class Game
         }
         else if (commandWord.equals("look")) {
             player.look();
+        }
+        else if (commandWord.equals("take")) {
+            player.take(command.getSecondWord());
+        }
+        else if (commandWord.equals("items")) {
+            player.items();
+        }
+        else if (commandWord.equals("drop")) {
+            player.drop(command.getSecondWord());
         }
         else if (commandWord.equals("eat")) {
             player.eat();
