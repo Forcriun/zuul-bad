@@ -110,12 +110,18 @@ public class Player
         Item currentItem = currentRoom.searchItem(itemId);
 
         if(currentItem != null){
-            inventory.add(currentItem);
-            currentRoom.removeItem(currentItem);
-            System.out.println("Has cogido el objeto: " + currentItem.getItemDescription() + ".");
+            if(currentItem.getCanBeTaken()){
+                inventory.add(currentItem);
+                currentRoom.removeItem(currentItem);
+                System.out.println("Has cogido el objeto: " + currentItem.getItemDescription() + ".");
+            }
+
+            else{
+                System.out.println("¡No puedes coger el objeto!");
+            }
         }
         else{
             System.out.println("¿De qué objeto me estás hablando?");
-        }        
+        }
     }
 }
