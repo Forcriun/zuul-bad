@@ -22,7 +22,12 @@ public class Player
     private ArrayList<Item> inventory;
     private int maxWeight;
     private int currentWeight;
-
+    
+    //  Poder especial del jugador por el cual puede coger cualquier objeto sin importar
+    //  su atributo canBeTaken. El poder se activa una vez en cuentra y equipa la mochila
+    //  mágica localizada en alguna de las salas de la partida
+    private boolean specialPower;
+    
     /**
      * Constructor de la clase Player
      * 
@@ -33,6 +38,7 @@ public class Player
         inventory = new ArrayList<>();
         currentWeight = 0;
         this.maxWeight = maxWeight;
+        specialPower = false;
     }
 
     /**
@@ -116,7 +122,7 @@ public class Player
         Item currentItem = currentRoom.searchItem(itemId);
 
         if(currentItem != null){
-            if(currentItem.getCanBeTaken()){
+            if(currentItem.getCanBeTaken() || specialPower){
                 if(currentItem.getItemWeight() + currentWeight < maxWeight){
                     inventory.add(currentItem);
                     currentRoom.removeItem(currentItem);
@@ -187,5 +193,44 @@ public class Player
         else{
             System.out.println("¿Soltar qué?");
         } 
+    }
+
+    /**
+     * Metodo que simula al jugador equipandose una mochila magica que le permite
+     * poder coger cualquier objeto del juego, incluidos los que no podian cogerse
+     * anteriormente.
+     * 
+     * @param itemId El ID del objeto
+     */
+    public void equip(String itemId) 
+    {
+        if(itemId != null){
+            if (itemId.equals("mochilaca")) {
+                if(inventory.isEmpty()){
+                    System.out.println("Primero tendrás que coger algo, melón.");
+                }
+                else{
+                    boolean searching = true;
+
+                    for(int i = 0; i < inventory.size() && searching; i++){
+                        if(inventory.get(i).getId().equals("mochilaca")){
+                            inventory.remove(inventory.get(i));
+                            specialPower = true;
+                            searching = false;
+                            System.out.println("Te has equipado la mochila mágica.\n¡¡¡Ahora puedes coger cualquier objeto que encuentres!!!");
+                        }
+                        else{
+                            System.out.println("No llevas ninguna mochilaca encima.");
+                        }
+                    }
+                }
+            }
+            else{
+                System.out.println("No puedes equiparte eso.");
+            }
+        }
+        else {
+            System.out.println("¿Equipar qué?");
+        }
     }
 }

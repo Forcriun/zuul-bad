@@ -82,6 +82,8 @@ public class Game
         recepcion.addItem(new Item("paraguas","Paraguas",400,true));
         recepcion.addItem(new Item("folleto","Folleto de la empresa",15,true));
         recepcion.addItem(new Item("stand","Stand publicitario",9700,true));
+        
+        oficinas.addItem(new Item("mochilaca","Mochila mágica",260,true));
 
         planta.addItem(new Item("barra","Barra de acero inoxidable",1200,true));
         planta.addItem(new Item("llave","Llave dinamométrica",3480,false));
@@ -171,6 +173,9 @@ public class Game
         }
         else if (commandWord.equals("drop")) {
             player.drop(command.getSecondWord());
+        }
+        else if (commandWord.equals("equip")) {
+            player.equip(command.getSecondWord());
         }
         else if (commandWord.equals("eat")) {
             player.eat();
