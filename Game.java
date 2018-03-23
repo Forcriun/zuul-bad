@@ -79,19 +79,19 @@ public class Game
         torno.setExit("southEast", logistica);
 
         // Anadimos los items a las salas
-        recepcion.addItem("Paraguas",400);
+        recepcion.addItem(new Item("paraguas","Paraguas",400));
 
-        planta.addItem("Barra de acero inoxidable",1200);
-        planta.addItem("Llave dinamométrica",3480);
-        planta.addItem("Casco de seguridad",720);
+        planta.addItem(new Item("barra","Barra de acero inoxidable",1200));
+        planta.addItem(new Item("llave","Llave dinamométrica",3480));
+        planta.addItem(new Item("casco","Casco de seguridad",720));
 
-        logistica.addItem("Rollo de embalaje",9235);
-        logistica.addItem("Cúter",115);
+        logistica.addItem(new Item("rollo","Rollo de embalaje",13235));
+        logistica.addItem(new Item("cuter","Cúter",115));
 
-        vestuarios.addItem("Abrigo de piel",2100);
-        vestuarios.addItem("Botas de seguridad",2430);
-        vestuarios.addItem("Guantes del nº9",65);
-        vestuarios.addItem("Camiseta de tirantes",80);
+        vestuarios.addItem(new Item("abrigo","Abrigo de piel",2100));
+        vestuarios.addItem(new Item("botas","Botas de seguridad",2430));
+        vestuarios.addItem(new Item("guantes","Guantes del nº9",65));
+        vestuarios.addItem(new Item("camiseta","Camiseta de tirantes",80));
 
         return recepcion;
     }
@@ -160,6 +160,9 @@ public class Game
         }
         else if (commandWord.equals("look")) {
             player.look();
+        }
+        else if (commandWord.equals("take")) {
+            player.take(command.getSecondWord());
         }
         else if (commandWord.equals("eat")) {
             player.eat();

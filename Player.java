@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Stack;
 
 /**
@@ -17,11 +18,15 @@ public class Player
     private Room currentRoom;   //  La sala en la que se encuentra el jugador
     private Stack<Room> enteredRooms;   //  Stack de las salas visitadas por el jugador durante la partida
 
+    //  Variables de control del inventario
+    private ArrayList<Item> inventory;
+
     /**
      * Constructor de la clase Player
      */
     public Player(){
         enteredRooms = new Stack<>();
+        inventory = new ArrayList<>();
     }
 
     /**
@@ -91,5 +96,26 @@ public class Player
      */
     public void eat(){
         System.out.println("Has comido algo y ya no estás hambriento.");
+    }
+
+    /**
+     * Metodo que simula al jugador cogiendo un objeto de la sala en la que se
+     * encuentra. Si tiene lleno el inventario o el peso del objeto a coger
+     * hace que sobrepase su limite, no lo coge.
+     * 
+     * @param itemId El ID del objeto
+     */
+    public void take(String itemId) 
+    {        
+        Item currentItem = currentRoom.searchItem(itemId);
+
+        if(currentItem != null){
+            inventory.add(currentItem);
+            currentRoom.removeItem(currentItem);
+            System.out.println("Has cogido el objeto: " + currentItem.getItemDescription() + ".");
+        }
+        else{
+            System.out.println("¿De qué objeto me estás hablando?");
+        }        
     }
 }
