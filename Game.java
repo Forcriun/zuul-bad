@@ -22,7 +22,7 @@ public class Game
     private Parser parser;
     private Room currentRoom;
     private Player player;
-    
+
     /**
      * Create the game and initialise its internal map.
      */
@@ -79,18 +79,17 @@ public class Game
 
         torno.setExit("south", vestuarios);
         torno.setExit("southEast", logistica);
-        
+
         // Anadimos los items a las salas
         recepcion.addItem("Paraguas",400);
-        
+
         planta.addItem("Barra de acero inoxidable",1200);
         planta.addItem("Llave dinamométrica",3480);
         planta.addItem("Casco de seguridad",720);
-        
-        
+
         logistica.addItem("Rollo de embalaje",9235);
         logistica.addItem("Cúter",115);
-        
+
         vestuarios.addItem("Abrigo de piel",2100);
         vestuarios.addItem("Botas de seguridad",2430);
         vestuarios.addItem("Guantes del nº9",65);
