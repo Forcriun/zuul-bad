@@ -124,4 +124,25 @@ public class Player
             System.out.println("¿De qué objeto me estás hablando?");
         }
     }
+
+    /**
+     * Metodo que informa al jugador del contenido de su inventario.
+     */
+    public void items() 
+    {
+        if(inventory.isEmpty()){
+            System.out.println("Tu inventario está vacío.");
+        }
+        else{
+            int currentWeight = 0;
+            System.out.println("Inventario: ");
+
+            for(Item item : inventory){
+                System.out.println(item.getLongDescription());
+                currentWeight += item.getItemWeight();
+            }            
+
+            System.out.println("Peso total: " + currentWeight + "(gm).");
+        }
+    }
 }
