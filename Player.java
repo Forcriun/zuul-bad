@@ -145,4 +145,37 @@ public class Player
             System.out.println("Peso total: " + currentWeight + "(gm).");
         }
     }
+
+    /**
+     * Metodo que simula al jugador soltando un objeto en la sala en la que se
+     * encuentra. Si tiene el inventario vacio recibe un aviso.
+     * 
+     * @param itemId El ID del objeto
+     */
+    public void drop(String itemId) 
+    {
+        if(itemId != null){
+            Item currentItem = null;
+            boolean searching = true;
+
+            for(int i = 0; i < inventory.size() && searching; i++){
+                if(inventory.get(i).getId().contains(itemId)){
+                    currentItem = inventory.get(i);
+                    searching = false;
+                }
+            }
+
+            if(currentItem != null){
+                currentRoom.addItem(currentItem);
+                inventory.remove(currentItem);
+                System.out.println("Has soltado: " + currentItem.getItemDescription());
+            }
+            else{
+                System.out.println("El objeto no está en tu inventario.");
+            }
+        }
+        else{
+            System.out.println("¿Soltar qué?");
+        } 
+    }
 }
