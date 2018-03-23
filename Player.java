@@ -20,13 +20,19 @@ public class Player
 
     //  Variables de control del inventario
     private ArrayList<Item> inventory;
+    private int maxWeight;
+    private int currentWeight;
 
     /**
      * Constructor de la clase Player
+     * 
+     * @param  maxWeight  El peso maximo en gramos que puede llevar el jugador en çel inventario
      */
-    public Player(){
+    public Player(int maxWeight){
         enteredRooms = new Stack<>();
         inventory = new ArrayList<>();
+        currentWeight = 0;
+        this.maxWeight = maxWeight;
     }
 
     /**
@@ -111,11 +117,16 @@ public class Player
 
         if(currentItem != null){
             if(currentItem.getCanBeTaken()){
-                inventory.add(currentItem);
-                currentRoom.removeItem(currentItem);
-                System.out.println("Has cogido el objeto: " + currentItem.getItemDescription() + ".");
+                if(currentItem.getItemWeight() + currentWeight < maxWeight){
+                    inventory.add(currentItem);
+                    currentRoom.removeItem(currentItem);
+                    currentWeight += currentItem.getItemWeight();
+                    System.out.println("Has cogido el objeto: " + currentItem.getItemDescription() + ".");
+                }
+                else{
+                    System.out.println("¡El objeto no cabe en tu inventario!");
+                }
             }
-
             else{
                 System.out.println("¡No puedes coger el objeto!");
             }
@@ -134,12 +145,10 @@ public class Player
             System.out.println("Tu inventario está vacío.");
         }
         else{
-            int currentWeight = 0;
             System.out.println("Inventario: ");
 
             for(Item item : inventory){
                 System.out.println(item.getLongDescription());
-                currentWeight += item.getItemWeight();
             }            
 
             System.out.println("Peso total: " + currentWeight + "(gm).");
@@ -168,6 +177,7 @@ public class Player
             if(currentItem != null){
                 currentRoom.addItem(currentItem);
                 inventory.remove(currentItem);
+                currentWeight -= currentItem.getItemWeight();
                 System.out.println("Has soltado: " + currentItem.getItemDescription());
             }
             else{

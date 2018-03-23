@@ -104,7 +104,7 @@ public class Game
      * @param   startingRoom  La habitacion inicial de la partida
      */
     private void createPlayer(){
-        player = new Player();
+        player = new Player(10000);
         player.setCurrentRoom(createRooms());  // start game outside        
     }
 
