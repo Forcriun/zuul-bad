@@ -20,7 +20,6 @@ import java.util.Stack;
 public class Game 
 {
     private Parser parser;
-    private Room currentRoom;
     private Player player;
 
     /**
@@ -28,15 +27,14 @@ public class Game
      */
     public Game() 
     {
-        player = new Player();
-        createRooms();
+        createPlayer();
         parser = new Parser();
     }
 
     /**
      * Create all the rooms and link their exits together.
      */
-    private void createRooms()
+    private Room createRooms()
     {
         Room recepcion, oficinas, laboratorio, planta, logistica, vestuarios,torno;
 
@@ -95,7 +93,17 @@ public class Game
         vestuarios.addItem("Guantes del nº9",65);
         vestuarios.addItem("Camiseta de tirantes",80);
 
-        player.setCurrentRoom(recepcion);  // start game outside
+        return recepcion;
+    }
+
+    /**
+     * Metodo que inicializa al jugador de la partida en la sala inicial.
+     * 
+     * @param   startingRoom  La habitacion inicial de la partida
+     */
+    private void createPlayer(){
+        player = new Player();
+        player.setCurrentRoom(createRooms());  // start game outside        
     }
 
     /**
