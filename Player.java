@@ -22,12 +22,12 @@ public class Player
     private ArrayList<Item> inventory;
     private int maxWeight;
     private int currentWeight;
-    
+
     //  Poder especial del jugador por el cual puede coger cualquier objeto sin importar
     //  su atributo canBeTaken. El poder se activa una vez en cuentra y equipa la mochila
     //  mágica localizada en alguna de las salas de la partida
     private boolean specialPower;
-    
+
     /**
      * Constructor de la clase Player
      * 
@@ -208,6 +208,9 @@ public class Player
             if (itemId.equals("mochilaca")) {
                 if(inventory.isEmpty()){
                     System.out.println("Primero tendrás que coger algo, melón.");
+                }                        
+                else if(specialPower){
+                    System.out.println("Pero si ya la tienes equipada, zote.");
                 }
                 else{
                     boolean searching = true;
@@ -218,9 +221,6 @@ public class Player
                             specialPower = true;
                             searching = false;
                             System.out.println("Te has equipado la mochila mágica.\n¡¡¡Ahora puedes coger cualquier objeto que encuentres!!!");
-                        }
-                        else{
-                            System.out.println("No llevas ninguna mochilaca encima.");
                         }
                     }
                 }
