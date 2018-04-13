@@ -82,7 +82,7 @@ public class Game
         recepcion.addItem(new Item("paraguas","Paraguas",400,true));
         recepcion.addItem(new Item("folleto","Folleto de la empresa",15,true));
         recepcion.addItem(new Item("stand","Stand publicitario",9700,true));
-        
+
         oficinas.addItem(new Item("mochilaca","Mochila mágica",260,true));
 
         planta.addItem(new Item("barra","Barra de acero inoxidable",1200,true));
@@ -150,41 +150,42 @@ public class Game
     {
         boolean wantToQuit = false;
 
-        if(command.isUnknown()) {
+        CommandWord commandWord = command.getCommandWord();
+        switch (commandWord){
+            case UNKNOWN:
             System.out.println("I don't know what you mean...");
-            return false;
-        }
-
-        String commandWord = command.getCommandWord();
-        if (commandWord.equals("help")) {
+            break;
+            case HELP:
             printHelp();
-        }
-        else if (commandWord.equals("go")) {
+            break;
+            case GO:
             goRoom(command);
-        }
-        else if (commandWord.equals("look")) {
+            break;
+            case LOOK:
             player.look();
-        }
-        else if (commandWord.equals("take")) {
+            break;
+            case TAKE:
             player.take(command.getSecondWord());
-        }
-        else if (commandWord.equals("items")) {
+            break;
+            case ITEMS:
             player.items();
-        }
-        else if (commandWord.equals("drop")) {
+            break;
+            case DROP:
             player.drop(command.getSecondWord());
-        }
-        else if (commandWord.equals("equip")) {
+            break;
+            case EQUIP:
             player.equip(command.getSecondWord());
-        }
-        else if (commandWord.equals("eat")) {
+            break;
+            case EAT:
             player.eat();
-        }
-        else if (commandWord.equals("back")) {
+            break;
+            case BACK:
             player.back();
-        }
-        else if (commandWord.equals("quit")) {
+            break;
+            case QUIT:
             wantToQuit = quit(command);
+            break;
+
         }
 
         return wantToQuit;
